@@ -1,7 +1,24 @@
-const express = require('express')
-const path = require('path')
-const app = express()
-const port = 3000
+const express = require('express');
+const { MongoClient } = require('mongodb');
+
+const port = 3000;
+const mongoUrl = 'mongodb://localhost:27017';
+const dbName = 'movies';
+
+const client = new MongoClient(mongoUrl);
+const app = express();
+
+const connect2db = async () => {
+    await client.connect()
+    console.log('banco conectado')
+}
+
+const disconnect2db = async () => {
+    await client.close()
+    console.log('banco desconectado')
+}
+
+connect2db()
 
 // Define a pasta pública
 app.use(express.static('public'))
